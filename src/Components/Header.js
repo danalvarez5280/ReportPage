@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { Route, NavLink, Link } from "react-router-dom";
+//if we use redux we can use the store from the main container
+// import MainContainer from '../Containers/MainContainer';
 
 import './ComponentStyles.css';
 
 class Header extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       accounts: [],
@@ -42,27 +45,35 @@ class Header extends Component {
       }
     ];
     this.setState({
-      accounts: mockUserInfo,
-      user: mockUserInfo[0]
+      accounts: mockUserInfo
     });
-  }
+  };
+
+  selectUser(obj){
+    this.props.selectUser(obj);
+    this.setState({
+      user: obj
+    });
+  };
 
   displayAccounts() {
     if(this.state.showAccounts) {
       const accountOptions = this.state.accounts.map((elem, index) => {
-        return <div key={index} className="account-option">{elem.name}</div>;
+        return <div 
+                  key={index} 
+                  className="account-option"
+                  onClick={() => this.selectUser(elem)}>{elem.name}</div>;
       });
-
       return accountOptions;
-    }
-  }
+    };
+  };
 
   toggleAccount() {
     console.log('boolean value', this.state.showAccounts)
     this.setState({
       showAccounts: !this.state.showAccounts
     })
-  }
+  };
 
   render() {
     console.log("header page", this.state);

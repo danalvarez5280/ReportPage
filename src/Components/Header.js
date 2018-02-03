@@ -8,6 +8,7 @@ class Header extends Component {
     this.state = {
       accounts: [],
       showAccounts: false,
+      user: {},
     };
     this.displayAccounts = this.displayAccounts.bind(this);
   };
@@ -41,45 +42,48 @@ class Header extends Component {
       }
     ];
     this.setState({
-      accounts: mockUserInfo
+      accounts: mockUserInfo,
+      user: mockUserInfo[0]
     });
   }
 
-  displayAccounts(value) {
-    console.log('boolean value', value)
-    if(!value) {
+  displayAccounts() {
+    if(this.state.showAccounts) {
       const accountOptions = this.state.accounts.map((elem, index) => {
         return <div key={index} className="account-option">{elem.name}</div>;
       });
 
       return accountOptions;
-    };
-    
-    // this.setState({
-    //   showAccounts: false,
-    // });
-    
+    }
+  }
+
+  toggleAccount() {
+    console.log('boolean value', this.state.showAccounts)
+    this.setState({
+      showAccounts: !this.state.showAccounts
+    })
   }
 
   render() {
     console.log("header page", this.state);
     const accounts = this.displayAccounts();
-    const {showAccounts} = this.state;
-    return (
-      <div className="header">
+    const {showAccounts, user} = this.state;
+    const instructionText = showAccounts ? "Cancel" : "Choose Another Account";
+    return <div className="header">
         <div className="account-info">
-          <p>User Name/Id</p>
-          <p>Available Funds</p>
-          <p>On Hold</p>
+          <p>Account: {user.accountId}</p>
+          <p>Current Funds: {user.currentFunds}</p>
+          <p>On Hold: {user.onHold}</p>
         </div>
         <div className="accounts">
-          <div 
-            className="toggle-account-display account-option"
-            onClick={ () => this.displayAccounts(showAccounts)}>Choose Another Account</div>
-          {accounts}
+          <div className="toggle-account-display account-option" onClick={() => this.toggleAccount()}>
+            {instructionText}
+          </div>
+          <div className="all-accounts">
+            {accounts}
+          </div>
         </div>
-      </div>
-    );
+      </div>;
   }
 };
 

@@ -6,11 +6,16 @@ import Header from './Components/Header';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
   render() {
     return (
       <div className="App">
         <Header />
-        <Route exact path="/" component={Home} />       
+        <Route exact path="/" component={Home} />
       </div>
     );
   }

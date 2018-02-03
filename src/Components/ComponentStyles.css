@@ -1,0 +1,9 @@
+.account-option {
+  background-color: yellow;
+}
+
+.account-option:hover {
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+}

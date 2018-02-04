@@ -9,44 +9,11 @@ class Header extends Component {
   constructor(props) {
     super();
     this.state = {
-      accounts: [],
+      accounts: props.accountsInfo,
       showAccounts: false,
       user: {},
     };
     this.displayAccounts = this.displayAccounts.bind(this);
-  };
-
-  componentDidMount() {
-    //this is where we would do the fetch call to tha api to get the actual account info
-    const mockUserInfo = [
-      {
-        name: "User 1",
-        accountId: 123456789,
-        currentFunds: 100000,
-        onHold: 10000
-      },
-      {
-        name: "User 2",
-        accountId: 234567891,
-        currentFunds: 110000,
-        onHold: 11000
-      },
-      {
-        name: "User 3",
-        accountId: 345678912,
-        currentFunds: 120000,
-        onHold: 12000
-      },
-      {
-        name: "User 4",
-        accountId: 456789123,
-        currentFunds: 130000,
-        onHold: 13000
-      }
-    ];
-    this.setState({
-      accounts: mockUserInfo
-    });
   };
 
   selectUser(obj){
@@ -79,7 +46,7 @@ class Header extends Component {
     console.log("header page", this.state);
     const accounts = this.displayAccounts();
     const {showAccounts, user} = this.state;
-    const instructionText = showAccounts ? "Cancel" : "Choose Another Account";
+    const instructionText = showAccounts ? "Cancel" : "Choose Account";
     return <div className="header">
         <div className="account-info">
           <p>Account: {user.accountId}</p>
